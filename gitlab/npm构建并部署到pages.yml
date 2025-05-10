@@ -1,8 +1,8 @@
 image: node:lts
 create-pages:
   pages:
-  # 部署网页的根目录
-    publish: dist
+  # 部署网页的根目录，next默认为out，vite默认为dist
+    publish: out
   rules:
   # 只在默认分支执行
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
