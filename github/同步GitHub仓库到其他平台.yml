@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: sync
-      cancel-in-progress: true
+      cancel-in-progress: true # 自动取消未完成的任务
 
     steps:
     - name: Check if TOKEN is set

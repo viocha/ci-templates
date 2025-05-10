@@ -1,11 +1,15 @@
 image: node:lts
 create-pages:
   pages:
+  # 部署网页的根目录
     publish: dist
   rules:
+  # 只在默认分支执行
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  interruptible: true # 自动取消未完成的任务
     
   cache:
+  # 缓存文件，避免重复下载
     paths:
       - node_modules/
 
