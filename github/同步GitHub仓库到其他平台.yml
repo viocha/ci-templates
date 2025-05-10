@@ -1,4 +1,4 @@
-name: Sync all branches and tags to GitLab
+name: Sync all branches and tags
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
     tags: ["**"]
 
 jobs:
-  sync-to-gitlab:
+  sync:
     runs-on: ubuntu-latest
     concurrency:
       group: sync
