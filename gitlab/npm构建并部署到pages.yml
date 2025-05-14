@@ -1,4 +1,4 @@
-image: node:lts
+image: node:alpine
 create-pages:
   pages:
   # 部署网页的根目录，next默认为out，vite默认为dist
