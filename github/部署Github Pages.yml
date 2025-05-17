@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+          cache: 'npm' # 缓存npm包
+
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build-web # 构建网页
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist-web  # 指定要上传的目录
+
+      - uses: actions/deploy-pages@v4

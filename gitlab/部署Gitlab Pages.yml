@@ -1,0 +1,15 @@
+image: node:alpine
+create-pages:
+  pages: # 部署网页的根目录，next默认为out，vite默认为dist
+    publish: out
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH   # 只在默认分支执行
+  interruptible: true # 自动取消未完成的任务
+
+  cache: # 缓存文件，避免重复下载
+    paths:
+      - node_modules/
+
+  script:
+    - npm install
+    - npm run build
