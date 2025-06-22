@@ -3,7 +3,7 @@ image: node:alpine # 使用精简的Node镜像
 default: # 通过 default 关键字设置全局的默认行为
   interruptible: true # 这样，除非在某个作业中明确覆盖，否则所有作业都是可中断的
 
-deploy-pages:
+deploy:
   pages:
     publish: dist  # 需要部署的目录，可以指定为当前目录`.`
 

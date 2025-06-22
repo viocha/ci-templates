@@ -1,4 +1,4 @@
-name: Deploy to Github Pages
+name: Deploy to Surge
 
 on:
   push:
@@ -30,8 +30,10 @@ jobs:
           npm install
           npm run build # 构建网页
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to surge.sh
+        uses: dswistowski/surge-sh-action@v1
         with:
-          path: ./dist  # 指定要上传的目录
-
-      - uses: actions/deploy-pages@v4
+          domain: 'SUBDOMAIN.surge.sh' # Surge域名
+          project: '.'                 # 要部署的目录
+          login: ${{ secrets.surge_login }}
+          token: ${{ secrets.surge_token }}
