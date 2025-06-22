@@ -5,13 +5,13 @@ on:
     branches: ["**"]
     tags: ["**"]
 
+concurrency:
+  group: ${{ github.workflow }} # 定义并发组，基于工作流名
+  cancel-in-progress: true # 启用自动取消正在进行的运行
+
 jobs:
   sync:
     runs-on: ubuntu-latest
-    concurrency:
-      group: sync
-      cancel-in-progress: true # 自动取消未完成的任务
-
     steps:
     - name: Check if TOKEN is set
       run: |
@@ -23,7 +23,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 0 # 获取所有分支和标签
 
     - name: Push Repository
       env:

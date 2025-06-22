@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy Pages
 
 on:
   push:
@@ -9,6 +9,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }} # 定义并发组，基于工作流名和分支名
+  cancel-in-progress: true # 启用自动取消正在进行的运行
 
 jobs:
   build-and-deploy:
@@ -24,10 +28,10 @@ jobs:
       - name: Install and Build
         run: |
           npm install
-          npm run build-web # 构建网页
+          npm run build # 构建网页
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist-web  # 指定要上传的目录
+          path: ./dist  # 指定要上传的目录
 
       - uses: actions/deploy-pages@v4

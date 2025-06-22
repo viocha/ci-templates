@@ -1,15 +1,20 @@
-image: node:alpine
-create-pages:
-  pages: # 部署网页的根目录，next默认为out，vite默认为dist
-    publish: out
+image: node:alpine # 使用精简的Node镜像
+
+default: # 通过 default 关键字设置全局的默认行为
+  interruptible: true # 这样，除非在某个作业中明确覆盖，否则所有作业都是可中断的
+
+deploy-pages:
+  pages:
+    publish: dist  # 需要部署的目录，可以指定为当前目录`.`
+
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH   # 只在默认分支执行
-  interruptible: true # 自动取消未完成的任务
 
   cache: # 缓存文件，避免重复下载
     paths:
       - node_modules/
 
-  script:
+  script: # 必须包含script部分
+    - echo "Deploying GitLab Pages..." # 如果无需构建，可以仅保留这一行脚本
     - npm install
-    - npm run build
+    - npm run build # 执行网页构建
